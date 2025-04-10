@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bichinho Virtual</title>
+    <link rel="stylesheet" href="styles/pet.css">
+    <link rel="preload" href="assets/sprites/pet.png" as="image">
+    <link rel="preload" href="assets/sprites/coco.png" as="image">
+    <style>
+        /* Estilos inlines para carregamento crítico */
+        .game-container {
+            max-width: 320px;
+            margin: 20px auto;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="status-bars">
+            <div class="status">
+                <span title="Fome">🍴 <span id="hunger">100</span>%</span>
+                <span title="Higiene">🚽 <span id="cleanliness">0</span>%</span>
+                <span title="Energia">💤 <span id="energy">100</span>%</span>
+            </div>
+        </div>
+        
+        <div class="pet-container" id="petContainer">
+            <div class="pet" id="pet"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn feed" onclick="game.pet.feed()" title="Alimentar o bichinho">
+                <span class="icon">🍗</span> Alimentar
+            </button>
+            <button class="btn clean" onclick="game.pet.clean()" title="Limpar o bichinho">
+                <span class="icon">🧼</span> Limpar
+            </button>
+            <button class="btn sleep" onclick="game.pet.toggleSleep()" title="Dormir/Acordar">
+                <span class="icon">🛏️</span> <span class="sleep-text">Dormir</span>
+            </button>
+        </div>
+        
+        <div class="achievements-container">
+            <h3>Conquistas</h3>
+            <div id="achievements-list"></div>
+        </div>
+    </div>
+
+    <button id="resetBtn" class="btn reset-btn" title="Reiniciar o jogo">
+        <span class="icon">🔄</span> Resetar
+    </button>
+
+    <!-- Elemento para notificações dinâmicas -->
+    <div id="notifications-container"></div>
+
+    <script src="scripts/pet.js" defer></script>
+    
+    <script>
+        // Inicialização imediata para evitar FOUC
+        document.addEventListener('DOMContentLoaded', function() {
+            if(!localStorage.getItem('petFirstLoad')) {
+                localStorage.setItem('petFirstLoad', 'true');
+                showWelcomeMessage();
+            }
+        });
+
+        function showWelcomeMessage() {
+            const welcome = document.createElement('div');
+            welcome.className = 'notification welcome';
+            welcome.innerHTML = `
+                <h3>Bem-vindo ao Bichinho Virtual!</h3>
+                <p>Cuide do seu pet para mantê-lo feliz e saudável.</p>
+            `;
+            document.body.appendChild(welcome);
+            setTimeout(() => welcome.remove(), 5000);
+        }
+    </script>
+</body>
+</html>

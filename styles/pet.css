@@ -1,0 +1,144 @@
+﻿.game-container {
+    max-width: 320px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.status-bars {
+    margin-bottom: 15px;
+}
+
+.status {
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.pet-container {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 15px;
+    position: relative;
+    overflow: visible;
+}
+
+.pet {
+    width: 64px;
+    height: 64px;
+    background-image: url('../assets/sprites/pet.png');
+    image-rendering: pixelated;
+    background-size: 256px 384px;
+    position: absolute;
+    transition: transform 0.2s ease;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.btn {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Animações */
+.idle {
+    animation: idle 1s steps(4) infinite;
+}
+
+.walking {
+    animation: walk 0.6s steps(4) infinite;
+}
+
+.eating {
+    animation: eat 0.8s steps(4) infinite;
+}
+
+.sleeping {
+    animation: sleep 2s steps(2) infinite;
+}
+
+.poop {
+    width: 16px;
+    height: 16px;
+    background-image: url('../assets/sprites/coco.png');
+    image-rendering: pixelated;
+    position: absolute;
+    animation: poop-appear 0.4s steps(4) forwards;
+}
+
+@keyframes idle {
+    100% { background-position: -256px 0; }
+}
+
+@keyframes walk {
+    100% { background-position: -256px -64px; }
+}
+
+@keyframes eat {
+    100% { background-position: -256px -128px; }
+}
+
+@keyframes sleep {
+    100% { background-position: -128px -192px; }
+}
+
+@keyframes poop-appear {
+    100% { background-position: -64px 0; }
+}
+
+/* Partículas */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    animation: particle-fly 1s ease-out forwards;
+}
+
+@keyframes particle-fly {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx, 0), var(--ty, -50px));
+    }
+}
+
+.particle.food {
+    width: 8px;
+    height: 8px;
+    background: #ffeb3b;
+    border-radius: 50%;
+}
+
+.particle.clean {
+    width: 10px;
+    height: 2px;
+    background: #00bcd4;
+}
+
+/* Botão de Reset */
+#resetBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px;
+    background: #ff5722;
+}
